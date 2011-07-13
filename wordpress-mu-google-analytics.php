@@ -114,24 +114,26 @@ function google_analytics_output() {
     unset( $google_analytics_blog_tracking_code );
   }
   if ( !empty( $google_analytics_site_tracking_code ) || !empty( $google_analytics_blog_tracking_code ) ) {
+		# Don't track previews 
+		if ( !is_preview() ) {
 ?>
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
+    	<script type="text/javascript">
+      	var _gaq = _gaq || [];
 <?php
-    if ( !empty( $google_analytics_site_tracking_code ) ) {
+    	if ( !empty( $google_analytics_site_tracking_code ) ) {
 ?>
-      _gaq.push(['_setAccount', '<?php echo $google_analytics_site_tracking_code; ?>']);
-      _gaq.push(['_trackPageview']);
-      _gaq.push(['_trackPageLoadTime']);
+      	_gaq.push(['_setAccount', '<?php echo $google_analytics_site_tracking_code; ?>']);
+      	_gaq.push(['_trackPageview']);
+      	_gaq.push(['_trackPageLoadTime']);
 <?php
-    }
-    if ( !empty( $google_analytics_blog_tracking_code ) ) {
+    	}
+    	if ( !empty( $google_analytics_blog_tracking_code ) ) {
 ?>
-      _gaq.push(['b._setAccount', '<?php echo $google_analytics_blog_tracking_code; ?>']);
-      _gaq.push(['b._trackPageview']);
-      _gaq.push(['b._trackPageLoadTime']);
+      	_gaq.push(['b._setAccount', '<?php echo $google_analytics_blog_tracking_code; ?>']);
+      	_gaq.push(['b._trackPageview']);
+      	_gaq.push(['b._trackPageLoadTime']);
 <?php
-    }
+			}
 ?>
       (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -140,6 +142,7 @@ function google_analytics_output() {
       })();
     </script>
 <?php
+		}
   }
 
 }
